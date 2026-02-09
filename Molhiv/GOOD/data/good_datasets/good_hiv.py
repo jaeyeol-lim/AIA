@@ -81,8 +81,9 @@ class GOODHIV(InMemoryDataset):
         self.domain = domain
         self.metric = 'ROC-AUC'
         self.task = 'Binary classification'
-        self.url = 'https://drive.google.com/file/d/1GNc0HUee5YQH4Vtlk8ZbDjyJBYTEyabo/view?usp=sharing'
-
+        # self.url = 'https://drive.google.com/file/d/1GNc0HUee5YQH4Vtlk8ZbDjyJBYTEyabo/view?usp=sharing'
+        self.url = 'https://drive.google.com/file/d/1CoOqYCuLObnG5M0D8a2P2NyL61WjbCzo/view?usp=sharing'
+        
         self.generate = generate
 
         super().__init__(root, transform, pre_transform)
@@ -105,7 +106,8 @@ class GOODHIV(InMemoryDataset):
         else:
             subset_pt += 4
 
-        self.data, self.slices = torch.load(self.processed_paths[subset_pt])
+        # weights_only=False
+        self.data, self.slices = torch.load(self.processed_paths[subset_pt], weights_only=False)
 
     @property
     def raw_dir(self):

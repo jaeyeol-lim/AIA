@@ -40,8 +40,8 @@ class GOODCMNIST(InMemoryDataset):
         self.domain = domain
         self.metric = 'Accuracy'
         self.task = 'Multi-label classification'
-        self.url = 'https://drive.google.com/file/d/1yQ4uACTPA1VfLqTzusXW2nCmei16Oy-w/view?usp=sharing'
-
+        # self.url = 'https://drive.google.com/file/d/1yQ4uACTPA1VfLqTzusXW2nCmei16Oy-w/view?usp=sharing'
+        self.url = 'https://drive.google.com/file/d/1F2r2kVmA0X07AXyap9Y_rOM6LipDzwhq/view?usp=sharing'
         self.generate = generate
 
         super().__init__(root, transform, pre_transform)
@@ -64,7 +64,8 @@ class GOODCMNIST(InMemoryDataset):
         else:
             subset_pt += 4
 
-        self.data, self.slices = torch.load(self.processed_paths[subset_pt])
+        # weights_only=False
+        self.data, self.slices = torch.load(self.processed_paths[subset_pt], weights_only=False)
 
     @property
     def raw_dir(self):
