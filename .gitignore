@@ -1,0 +1,24 @@
+/dataset/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ===== Virtual environments =====
+venv/
+.env/
+.venv/
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== Logs / outputs =====
+logs/
+outputs/
+runs/
+wandb/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
