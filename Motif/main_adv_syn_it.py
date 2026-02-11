@@ -247,7 +247,7 @@ if __name__ == "__main__":
         parser.add_argument('--l2reg',           type=float, default=5e-6, help='L2 norm (default: 5e-6)')
 
         parser.add_argument('--device', type=int, default=0, help='which gpu to use if any (default: 0)')
-        parser.add_argument('--domain', type=str, default='color', help='color, background')
+        parser.add_argument('--domain', type=str, default='basis', help='basis, size')
         parser.add_argument('--batch_size', type=int, default=32)
         
         parser.add_argument('--dataset', type=str, default="motif")
