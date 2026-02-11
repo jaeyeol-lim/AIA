@@ -7,14 +7,35 @@ In NeurIPS 2023: https://openreview.net/forum?id=hIGZujtOQv.
 
 ## Installations
 Main packages: PyTorch, Pytorch Geometric, OGB.
-```
-pytorch==1.10.1
-torch-cluster==1.5.9
-torch-geometric==2.0.3
-torch-scatter==2.0.9
-torch-sparse==0.6.12
-torch-spline-conv==1.2.1
-ogb==1.3.4
+```bash
+# Docker
+docker run -it --gpus all --name aia -v /home/jylim/project:/workspace --security-opt seccomp=unconfined pytorch/pytorch:2.8.0-cuda12.8-cudnn9-runtime
+
+# Apt-get
+printf 'APT::Sandbox::User "root";\nAPT::Sandbox::Seccomp "false";\n' > /etc/apt/apt.conf.d/99no-sandbox
+
+# Conda
+conda init bash
+exec bash
+
+apt-get update && apt-get install -y git
+
+git clone https://github.com/limlimlim00/AIA.git
+cd AIA
+
+conda create -n aia310 python=3.10
+conda activate aia310
+
+pip install torch==2.8.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+# PyG core + CUDA extension
+pip install torch-geometric
+pip install "scipy<2"
+pip install --no-index \
+  --find-links https://data.pyg.org/whl/torch-2.8.0+cu128.html \
+  pyg-lib torch-scatter torch-sparse torch-cluster torch-spline-conv
+
+pip install ogb munch ruamel.yaml typed-argument-parser cilog tensorboard gdown rdkit matplotlib
 ```
 
 ## Preparations
