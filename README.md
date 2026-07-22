@@ -35,7 +35,7 @@ pip install --no-index \
   --find-links https://data.pyg.org/whl/torch-2.8.0+cu128.html \
   pyg-lib torch-scatter torch-sparse torch-cluster torch-spline-conv
 
-pip install ogb munch ruamel.yaml typed-argument-parser cilog tensorboard gdown rdkit matplotlib
+pip install ogb munch ruamel.yaml typed-argument-parser cilog tensorboard gdown rdkit matplotlib scikit-learn
 ```
 
 ## Preparations
@@ -45,6 +45,10 @@ Create a folder ```dataset```, and then put the datasets into ```dataset```. The
 
 ## Commands
  We use the NVIDIA GeForce RTX 3090 (24GB GPU) to conduct all our experiments.
+
+### DrugOOD IC50
+
+DrugOOD IC50용 구현과 실행법은 [`DrugOOD/README.md`](DrugOOD/README.md)에 정리되어 있다. assay, scaffold, size domain과 문서에 지정된 AIA 하이퍼파라미터 탐색을 지원한다.
  To run the code on CMNIST, please use the following command:
  ```
 CUDA_VISIBLE_DEVICES=$GPU python -u main_adv_syn_it.py \
@@ -129,6 +133,4 @@ If you use our codes or checkpoints, please cite our paper:
     url={https://openreview.net/pdf?id=hIGZujtOQv}
 }
 ```
-
-
 

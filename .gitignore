@@ -18,6 +18,7 @@ logs/
 outputs/
 runs/
 wandb/
+DrugOOD/sweeps/
 
 # ===== OS =====
 .DS_Store
