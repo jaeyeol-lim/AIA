@@ -35,12 +35,12 @@ class CachedDrugOOD(InMemoryDataset):
         self.data, self.slices = torch.load(path, map_location="cpu", weights_only=False)
 
 
-def dataset_stem(subset: str, domain: str) -> str:
-    return f"drugood_lbap_{subset}_ic50_{domain}"
+def dataset_stem(subset: str, domain: str, endpoint: str = "ic50") -> str:
+    return f"drugood_lbap_{subset}_{endpoint}_{domain}"
 
 
-def load_splits(data_root: Path, subset: str, domain: str):
-    stem = dataset_stem(subset, domain)
+def load_splits(data_root: Path, subset: str, domain: str, endpoint: str = "ic50"):
+    stem = dataset_stem(subset, domain, endpoint)
     splits = {
         split: CachedDrugOOD(data_root / f"{stem}_{split}.pt")
         for split in ("train", "ood_val", "ood_test")

@@ -33,6 +33,7 @@ def main() -> None:
     parser.add_argument("--domains", nargs="+", choices=("assay", "scaffold", "size"), default=["assay"])
     parser.add_argument("--seeds", nargs="+", type=int, default=[1, 2, 3, 4])
     parser.add_argument("--subset", choices=("core", "general", "refined"), default="core")
+    parser.add_argument("--endpoint", choices=("ic50", "ec50"), default="ic50")
     parser.add_argument("--data-root", type=Path, default=None)
     parser.add_argument("--output-root", type=Path, default=Path(__file__).resolve().parent / "sweeps")
     parser.add_argument("--device", default="auto")
@@ -62,6 +63,7 @@ def main() -> None:
     for domain, seed, stable_ratio, penalty_weight in combinations:
         output_dir = (
             args.output_root
+            / args.endpoint
             / domain
             / f"stable_{value_name(stable_ratio)}_advpen_{value_name(penalty_weight)}"
             / f"seed_{seed}"
@@ -73,6 +75,8 @@ def main() -> None:
             domain,
             "--subset",
             args.subset,
+            "--endpoint",
+            args.endpoint,
             "--seed",
             str(seed),
             "--stable-feature-ratio",
@@ -116,7 +120,7 @@ def main() -> None:
         key = (domain, stable_ratio, penalty_weight)
         grouped.setdefault(key, []).append(summary)
 
-    aggregate = {"method": "AIA", "seeds": args.seeds, "groups": {}}
+    aggregate = {"method": "AIA", "endpoint": args.endpoint, "seeds": args.seeds, "groups": {}}
     best_by_domain = {}
     for (domain, stable_ratio, penalty_weight), summaries in sorted(grouped.items()):
         key = f"{domain}/stable={stable_ratio:g}/adversarial_penalty={penalty_weight:g}"
@@ -138,7 +142,7 @@ def main() -> None:
     aggregate["best_by_domain"] = {
         domain: key for domain, (_, key) in sorted(best_by_domain.items())
     }
-    aggregate_path = args.output_root / "aggregate.json"
+    aggregate_path = args.output_root / args.endpoint / "aggregate.json"
     aggregate_path.parent.mkdir(parents=True, exist_ok=True)
     aggregate_path.write_text(json.dumps(aggregate, indent=2), encoding="utf-8")
     print(f"aggregate={aggregate_path}")
@@ -146,4 +150,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

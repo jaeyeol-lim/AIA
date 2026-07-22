@@ -7,7 +7,7 @@
 - binary classification
 - Virtual Node가 없는 4-layer GIN: 2-layer front + 2-layer back
 - hidden dimension 128, dropout 0.5, sum pooling
-- Adam, learning rate `1e-3`, batch size 64
+- Adam, learning rate `1e-3`, batch size 128
 - full-graph ERM pretraining 10 epochs
 - AIA main training 최대 50 epochs
 - OOD validation accuracy 기준 early-stopping patience 10
